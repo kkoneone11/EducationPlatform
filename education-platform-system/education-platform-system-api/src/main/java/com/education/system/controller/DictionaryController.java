@@ -1,7 +1,10 @@
 package com.education.system.controller;
 
 import com.education.system.model.po.Dictionary;
-import com.xuecheng.system.service.DictionaryService;
+
+
+import com.education.system.service.DictionaryService;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +18,14 @@ import java.util.List;
  * 数据字典 前端控制器
  * </p>
  *
- * @author itcast
+ * @author kkoneone
  */
 @Slf4j
 @RestController
 public class DictionaryController  {
 
     @Autowired
-    private DictionaryService  dictionaryService;
+    private DictionaryService dictionaryService;
 
     @GetMapping("/dictionary/all")
     public List<Dictionary> queryAll() {
