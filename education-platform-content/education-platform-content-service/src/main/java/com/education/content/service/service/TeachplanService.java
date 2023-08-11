@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.education.content.model.dto.SaveTeachplanDto;
 import com.education.content.model.dto.TeachplanDto;
 import com.education.content.model.po.Teachplan;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface TeachplanService extends IService<Teachplan> {
     List<TeachplanDto> findTeachplanTree(long courseId);
 
     void saveTeachplan(SaveTeachplanDto saveTeachplanDto);
+
+    void deleteTeachplan(@PathVariable Long teachplanId);
 }

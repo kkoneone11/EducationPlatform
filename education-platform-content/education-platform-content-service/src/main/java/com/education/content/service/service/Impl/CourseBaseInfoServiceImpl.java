@@ -234,4 +234,7 @@ public class CourseBaseInfoServiceImpl extends ServiceImpl<CourseBaseMapper ,Cou
         return getCourseBaseInfo(courseId);
     }
 
+
+
+
 }

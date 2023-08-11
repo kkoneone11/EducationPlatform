@@ -7,7 +7,9 @@ import com.education.base.exception.EducationException;
 import com.education.content.model.dto.SaveTeachplanDto;
 import com.education.content.model.dto.TeachplanDto;
 import com.education.content.model.po.Teachplan;
+import com.education.content.model.po.TeachplanMedia;
 import com.education.content.service.mapper.TeachplanMapper;
+import com.education.content.service.mapper.TeachplanMediaMapper;
 import com.education.content.service.service.TeachplanService;
 import com.fasterxml.jackson.databind.util.BeanUtil;
 import org.springframework.beans.BeanUtils;
@@ -26,6 +28,9 @@ public class TeachplanServiceImpl extends ServiceImpl<TeachplanMapper, Teachplan
 
     @Autowired
     private TeachplanMapper teachplanMapper;
+
+    @Autowired
+    private TeachplanMediaMapper teachplanMediaMapper;
     /**
      * 查看课程计划
      * @param courseId
@@ -64,6 +69,36 @@ public class TeachplanServiceImpl extends ServiceImpl<TeachplanMapper, Teachplan
             }
         }
 
+    }
+
+    @Override
+    public void deleteTeachplan(Long teachplanId) {
+        if(teachplanId == null){
+            EducationException.cast("要删除的课程计划id为空");
+        }
+        //如果是删除章节的时候则要看子节是否为空
+        Teachplan teachplan = teachplanMapper.selectById(teachplanId);
+        Integer grade = teachplan.getGrade();
+
+        //删除章节
+        if(grade == 1){
+            LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(Teachplan::getParentid,teachplanId);
+            //查询章节下的子节的数目
+            Integer count = teachplanMapper.selectCount(queryWrapper);
+            //还有子节则抛异常
+            if(count > 0){
+                EducationException.cast("课程计划信息还有子级信息，无法删除");
+            }
+            //执行
+            teachplanMapper.deleteById(teachplanId);
+        }else{
+            //删除子节，需要删除课程信息的同时还需要删除媒体
+            teachplanMapper.deleteById(teachplanId);
+            LambdaQueryWrapper<TeachplanMedia> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(TeachplanMedia::getTeachplanId, teachplanId);
+            teachplanMediaMapper.delete(queryWrapper);
+        }
     }
 
 
