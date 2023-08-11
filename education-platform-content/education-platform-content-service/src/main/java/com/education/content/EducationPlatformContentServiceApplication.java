@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 //@MapperScan(basePackages = {"com.education.content.service.mapper"})
-@ComponentScan("com.education.content.service.mapper")
+//@ComponentScan("com.education.content.service.mapper")
 public class EducationPlatformContentServiceApplication {
 
     public static void main(String[] args) {

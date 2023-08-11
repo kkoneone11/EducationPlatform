@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
  *
  * @author kkoneone
  */
-
+@Mapper
 public interface CourseBaseMapper extends BaseMapper<CourseBase> {
 
 }

@@ -2,12 +2,16 @@ package com.education.content.api.controller;
 
 import com.education.base.model.page.PageParams;
 import com.education.base.model.page.PageResult;
+import com.education.content.model.dto.AddCourseDto;
+import com.education.content.model.dto.CourseBaseInfoDto;
+import com.education.content.model.dto.EditCourseDto;
 import com.education.content.model.dto.QueryCourseParamsDto;
 import com.education.content.model.po.CourseBase;
 import com.education.content.service.service.CourseBaseInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -42,9 +46,27 @@ public class CourseBaseInfoController {
 
     }
 
-
-    @RequestMapping("/course/listTest")
-    public PageResult<CourseBase> listTest(){
-        return null;
+    @ApiOperation("新增课程接口")
+    @PostMapping("/course")
+    public CourseBaseInfoDto createCourseBase(@RequestBody @Validated AddCourseDto addCourseDto){
+        //机构id，由于认证系统没有上线暂时硬编码
+        Long companyId = 1232141425L;
+        return courseBaseInfoService.createCourseBase(companyId,addCourseDto);
     }
+
+
+    @ApiOperation("根据课程id查询课程接口")
+    @GetMapping("/course/{courseId}")
+    public CourseBaseInfoDto getCourseBaseById(@PathVariable Long courseId){
+
+        return courseBaseInfoService.getCourseBaseInfo(courseId);
+    }
+
+    @ApiOperation("根据id修改课程接口")
+    @PutMapping("/course")
+    public CourseBaseInfoDto modifyCourseBase(@RequestBody @Validated EditCourseDto editCourseDto){
+        Long companyId = 1232141425L;
+        return courseBaseInfoService.updateCourseBase(companyId,editCourseDto);
+    }
+
 }
