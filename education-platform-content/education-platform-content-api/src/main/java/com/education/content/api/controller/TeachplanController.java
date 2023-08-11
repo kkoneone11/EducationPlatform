@@ -43,4 +43,9 @@ public class TeachplanController {
     public void deleteTeachplan(@PathVariable Long teachplanId){
         teachplanService.deleteTeachplan(teachplanId);
     }
+
+    @PostMapping("/teachplan/{moveType}/{teachplanId}")
+    public void moveTeachplan(@PathVariable String moveType , @PathVariable Long teachplanId){
+        teachplanService.moveTeachplan(moveType,teachplanId);
+    }
 }

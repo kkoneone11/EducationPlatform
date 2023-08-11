@@ -71,6 +71,10 @@ public class TeachplanServiceImpl extends ServiceImpl<TeachplanMapper, Teachplan
 
     }
 
+    /**
+     * 删除课程计划
+     * @param teachplanId
+     */
     @Override
     public void deleteTeachplan(Long teachplanId) {
         if(teachplanId == null){
@@ -99,6 +103,96 @@ public class TeachplanServiceImpl extends ServiceImpl<TeachplanMapper, Teachplan
             queryWrapper.eq(TeachplanMedia::getTeachplanId, teachplanId);
             teachplanMediaMapper.delete(queryWrapper);
         }
+    }
+
+    /**
+     * 移动课程计划顺序
+     * @param moveType
+     * @param teachplanId
+     */
+    @Override
+    public void moveTeachplan(String moveType, Long teachplanId) {
+        //获取当前的grade和orderby，根据章节移动和节移动分别处理
+        Teachplan teachplan = teachplanMapper.selectById(teachplanId);
+        Integer grade = teachplan.getGrade();
+        Integer orderby = teachplan.getOrderby();
+        //章节移动是在同一课程下的orderby移动
+        Long courseId = teachplan.getCourseId();
+        //节移动是同一章节下的orderby移动
+        Long parentid = teachplan.getParentid();
+
+        //向上移动 根据当前orderby然后排序找出其上一个的orderby然后进行交换
+        if("moveup".equals(moveType)){
+            //章节移动
+            // SELECT * FROM teachplan WHERE courseId = 117 AND grade = 1  AND orderby < 1 ORDER BY orderby DESC LIMIT 1
+            if(grade == 1){
+                LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
+                queryWrapper.eq(Teachplan::getCourseId,courseId)
+                        .eq(Teachplan::getGrade,grade)
+                        .lt(Teachplan::getOrderby,orderby)
+                        .orderByDesc(Teachplan::getOrderby)
+                        .last("LIMIT 1");
+                Teachplan temp = teachplanMapper.selectOne(queryWrapper);
+                exchangeOrderby(teachplan,temp);
+                //节移动
+            }else if(grade == 2){
+                LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
+                queryWrapper.eq(Teachplan::getParentid,parentid)
+                        .eq(Teachplan::getGrade,grade)
+                        .lt(Teachplan::getOrderby,orderby)
+                        .orderByDesc(Teachplan::getOrderby)
+                        .last("LIMIT 1");
+                Teachplan temp = teachplanMapper.selectOne(queryWrapper);
+                exchangeOrderby(teachplan,temp);
+            }
+        //向下移动 根据当前orderby然后排序找出其下一个的orderby然后进行交换
+        }else if("movedown".equals(moveType)){
+            //章节移动
+            if(grade == 1){
+                LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
+                queryWrapper.eq(Teachplan::getCourseId, courseId)
+                        .eq(Teachplan::getGrade, grade)
+                        .gt(Teachplan::getOrderby, orderby)
+                        .orderByAsc(Teachplan::getOrderby)
+                        .last("LIMIT 1");
+                Teachplan tmp = teachplanMapper.selectOne(queryWrapper);
+                exchangeOrderby(teachplan, tmp);
+
+            //节移动
+            }else if(grade == 2){
+                LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
+                queryWrapper.eq(Teachplan::getParentid, parentid)
+                        .gt(Teachplan::getOrderby, orderby)
+                        .orderByAsc(Teachplan::getOrderby)
+                        .last("LIMIT 1");
+                Teachplan tmp = teachplanMapper.selectOne(queryWrapper);
+                exchangeOrderby(teachplan, tmp);
+            }
+        }
+    }
+
+    /**t
+     * 交换orderby
+     * @param teachplan
+     * @param tmp
+     */
+    public void exchangeOrderby(Teachplan teachplan, Teachplan tmp){
+        //如果已经查不到对象了则证明已经到底了
+        if(tmp == null){
+            EducationException.cast("已经到底啦");
+        }
+
+        //互相交换orderby即可
+        Integer orderby = teachplan.getOrderby();
+        Integer tmpOrderby = tmp.getOrderby();
+
+        teachplan.setOrderby(tmpOrderby);
+        tmp.setOrderby(orderby);
+
+        teachplanMapper.updateById(teachplan);
+        teachplanMapper.updateById(tmp);
+
+
     }
 
 

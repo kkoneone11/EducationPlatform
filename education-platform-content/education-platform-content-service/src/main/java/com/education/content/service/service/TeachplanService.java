@@ -21,4 +21,6 @@ public interface TeachplanService extends IService<Teachplan> {
     void saveTeachplan(SaveTeachplanDto saveTeachplanDto);
 
     void deleteTeachplan(@PathVariable Long teachplanId);
+
+    void moveTeachplan(String moveType , Long teachplanId);
 }
