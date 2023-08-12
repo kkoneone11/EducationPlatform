@@ -1,13 +1,12 @@
-2023-08-11 20:40:30,497 ERROR [http-nio-63040-exec-5][DirectJDKLog.java:175] - Servlet.service() for servlet [dispatcherServlet] in context with path [/content] threw exception [Request processing failed; nested exception is com.education.base.exception.EducationException: 已经到底啦] with root cause
-com.education.base.exception.EducationException: 已经到底啦
+2023-08-12 10:20:57,858 ERROR [http-nio-63040-exec-3][DirectJDKLog.java:175] - Servlet.service() for servlet [dispatcherServlet] in context with path [/content] threw exception [Request processing failed; nested exception is com.education.base.exception.EducationException: 修改失败] with root cause
+com.education.base.exception.EducationException: 修改失败
 	at com.education.base.exception.EducationException.cast(EducationException.java:31)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl.exchangeOrderby(TeachplanServiceImpl.java:182)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl.moveTeachplan(TeachplanServiceImpl.java:146)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl$$FastClassBySpringCGLIB$$dec5e7ab.invoke(<generated>)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl.saveCourseTeacher(CourseTeacherServiceImpl.java:55)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl$$FastClassBySpringCGLIB$$a12afbe2.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:687)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl$$EnhancerBySpringCGLIB$$91573bf1.moveTeachplan(<generated>)
-	at com.education.content.api.controller.TeachplanController.moveTeachplan(TeachplanController.java:49)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl$$EnhancerBySpringCGLIB$$22c1ca7a.saveCourseTeacher(<generated>)
+	at com.education.content.api.controller.CourseTeacherController.saveCourseTeacher(CourseTeacherController.java:34)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -58,16 +57,15 @@ com.education.base.exception.EducationException: 已经到底啦
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
-2023-08-11 20:40:53,927 ERROR [http-nio-63040-exec-6][DirectJDKLog.java:175] - Servlet.service() for servlet [dispatcherServlet] in context with path [/content] threw exception [Request processing failed; nested exception is com.education.base.exception.EducationException: 已经到底啦] with root cause
-com.education.base.exception.EducationException: 已经到底啦
+2023-08-12 10:21:18,648 ERROR [http-nio-63040-exec-4][DirectJDKLog.java:175] - Servlet.service() for servlet [dispatcherServlet] in context with path [/content] threw exception [Request processing failed; nested exception is com.education.base.exception.EducationException: 修改失败] with root cause
+com.education.base.exception.EducationException: 修改失败
 	at com.education.base.exception.EducationException.cast(EducationException.java:31)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl.exchangeOrderby(TeachplanServiceImpl.java:182)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl.moveTeachplan(TeachplanServiceImpl.java:146)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl$$FastClassBySpringCGLIB$$dec5e7ab.invoke(<generated>)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl.saveCourseTeacher(CourseTeacherServiceImpl.java:55)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl$$FastClassBySpringCGLIB$$a12afbe2.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:687)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl$$EnhancerBySpringCGLIB$$91573bf1.moveTeachplan(<generated>)
-	at com.education.content.api.controller.TeachplanController.moveTeachplan(TeachplanController.java:49)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl$$EnhancerBySpringCGLIB$$22c1ca7a.saveCourseTeacher(<generated>)
+	at com.education.content.api.controller.CourseTeacherController.saveCourseTeacher(CourseTeacherController.java:34)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -118,16 +116,15 @@ com.education.base.exception.EducationException: 已经到底啦
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
-2023-08-11 20:41:20,907 ERROR [http-nio-63040-exec-3][DirectJDKLog.java:175] - Servlet.service() for servlet [dispatcherServlet] in context with path [/content] threw exception [Request processing failed; nested exception is com.education.base.exception.EducationException: 已经到底啦] with root cause
-com.education.base.exception.EducationException: 已经到底啦
+2023-08-12 10:23:11,089 ERROR [http-nio-63040-exec-1][DirectJDKLog.java:175] - Servlet.service() for servlet [dispatcherServlet] in context with path [/content] threw exception [Request processing failed; nested exception is com.education.base.exception.EducationException: 修改失败] with root cause
+com.education.base.exception.EducationException: 修改失败
 	at com.education.base.exception.EducationException.cast(EducationException.java:31)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl.exchangeOrderby(TeachplanServiceImpl.java:182)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl.moveTeachplan(TeachplanServiceImpl.java:146)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl$$FastClassBySpringCGLIB$$dec5e7ab.invoke(<generated>)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl.saveCourseTeacher(CourseTeacherServiceImpl.java:55)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl$$FastClassBySpringCGLIB$$a12afbe2.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:687)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl$$EnhancerBySpringCGLIB$$91573bf1.moveTeachplan(<generated>)
-	at com.education.content.api.controller.TeachplanController.moveTeachplan(TeachplanController.java:49)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl$$EnhancerBySpringCGLIB$$a4b5954e.saveCourseTeacher(<generated>)
+	at com.education.content.api.controller.CourseTeacherController.saveCourseTeacher(CourseTeacherController.java:34)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -178,16 +175,15 @@ com.education.base.exception.EducationException: 已经到底啦
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
-2023-08-11 20:41:22,942 ERROR [http-nio-63040-exec-4][DirectJDKLog.java:175] - Servlet.service() for servlet [dispatcherServlet] in context with path [/content] threw exception [Request processing failed; nested exception is com.education.base.exception.EducationException: 已经到底啦] with root cause
-com.education.base.exception.EducationException: 已经到底啦
+2023-08-12 10:28:48,911 ERROR [http-nio-63040-exec-7][DirectJDKLog.java:175] - Servlet.service() for servlet [dispatcherServlet] in context with path [/content] threw exception [Request processing failed; nested exception is com.education.base.exception.EducationException: 修改失败] with root cause
+com.education.base.exception.EducationException: 修改失败
 	at com.education.base.exception.EducationException.cast(EducationException.java:31)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl.exchangeOrderby(TeachplanServiceImpl.java:182)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl.moveTeachplan(TeachplanServiceImpl.java:146)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl$$FastClassBySpringCGLIB$$dec5e7ab.invoke(<generated>)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl.saveCourseTeacher(CourseTeacherServiceImpl.java:55)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl$$FastClassBySpringCGLIB$$a12afbe2.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:687)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl$$EnhancerBySpringCGLIB$$91573bf1.moveTeachplan(<generated>)
-	at com.education.content.api.controller.TeachplanController.moveTeachplan(TeachplanController.java:49)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl$$EnhancerBySpringCGLIB$$a4b5954e.saveCourseTeacher(<generated>)
+	at com.education.content.api.controller.CourseTeacherController.saveCourseTeacher(CourseTeacherController.java:34)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -238,16 +234,15 @@ com.education.base.exception.EducationException: 已经到底啦
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
-2023-08-11 20:41:24,216 ERROR [http-nio-63040-exec-5][DirectJDKLog.java:175] - Servlet.service() for servlet [dispatcherServlet] in context with path [/content] threw exception [Request processing failed; nested exception is com.education.base.exception.EducationException: 已经到底啦] with root cause
-com.education.base.exception.EducationException: 已经到底啦
+2023-08-12 10:40:15,057 ERROR [http-nio-63040-exec-8][DirectJDKLog.java:175] - Servlet.service() for servlet [dispatcherServlet] in context with path [/content] threw exception [Request processing failed; nested exception is com.education.base.exception.EducationException: 修改失败] with root cause
+com.education.base.exception.EducationException: 修改失败
 	at com.education.base.exception.EducationException.cast(EducationException.java:31)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl.exchangeOrderby(TeachplanServiceImpl.java:182)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl.moveTeachplan(TeachplanServiceImpl.java:146)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl$$FastClassBySpringCGLIB$$dec5e7ab.invoke(<generated>)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl.saveCourseTeacher(CourseTeacherServiceImpl.java:55)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl$$FastClassBySpringCGLIB$$a12afbe2.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:687)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl$$EnhancerBySpringCGLIB$$91573bf1.moveTeachplan(<generated>)
-	at com.education.content.api.controller.TeachplanController.moveTeachplan(TeachplanController.java:49)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl$$EnhancerBySpringCGLIB$$a4b5954e.saveCourseTeacher(<generated>)
+	at com.education.content.api.controller.CourseTeacherController.saveCourseTeacher(CourseTeacherController.java:34)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -298,16 +293,15 @@ com.education.base.exception.EducationException: 已经到底啦
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
-2023-08-11 20:41:30,196 ERROR [http-nio-63040-exec-6][DirectJDKLog.java:175] - Servlet.service() for servlet [dispatcherServlet] in context with path [/content] threw exception [Request processing failed; nested exception is com.education.base.exception.EducationException: 已经到底啦] with root cause
-com.education.base.exception.EducationException: 已经到底啦
+2023-08-12 10:41:50,237 ERROR [http-nio-63040-exec-9][DirectJDKLog.java:175] - Servlet.service() for servlet [dispatcherServlet] in context with path [/content] threw exception [Request processing failed; nested exception is com.education.base.exception.EducationException: 修改失败] with root cause
+com.education.base.exception.EducationException: 修改失败
 	at com.education.base.exception.EducationException.cast(EducationException.java:31)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl.exchangeOrderby(TeachplanServiceImpl.java:182)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl.moveTeachplan(TeachplanServiceImpl.java:146)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl$$FastClassBySpringCGLIB$$dec5e7ab.invoke(<generated>)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl.saveCourseTeacher(CourseTeacherServiceImpl.java:55)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl$$FastClassBySpringCGLIB$$a12afbe2.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:687)
-	at com.education.content.service.service.Impl.TeachplanServiceImpl$$EnhancerBySpringCGLIB$$91573bf1.moveTeachplan(<generated>)
-	at com.education.content.api.controller.TeachplanController.moveTeachplan(TeachplanController.java:49)
+	at com.education.content.service.service.Impl.CourseTeacherServiceImpl$$EnhancerBySpringCGLIB$$a4b5954e.saveCourseTeacher(<generated>)
+	at com.education.content.api.controller.CourseTeacherController.saveCourseTeacher(CourseTeacherController.java:34)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
