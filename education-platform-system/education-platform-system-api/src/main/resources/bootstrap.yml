@@ -5,14 +5,31 @@ server:
 #微服务配置
 spring:
   application:
-    name: system-service
+    name: system-api
   cloud:
     nacos:
+      server-addr: 192.168.101.65:8848
       discovery:
-        namespace: dev11
-        group: EducationPlatform
+        namespace: ${spring.profiles.active}
+        group: EducationPlatform-project
         username: nacos
         password: nacos
-        server-addr: 192.168.101.65:8848
-
+      config:
+        namespace: ${spring.profiles.active}
+        group: EducationPlatform-project
+        file-extension: yaml
+        refresh-enabled: true
+        extension-configs:
+          - data-id: system-service-${spring.profiles.active}.yaml
+            group: EducationPlatform-project
+            refresh: true
+        shared-configs:
+          - data-id: swagger-${spring.profiles.active}.yaml
+            group: EducationPlatform-common
+            refresh: true
+          - data-id: logging-${spring.profiles.active}.yaml
+            group: EducationPlatform-common
+            refresh: true
+  profiles:
+    active: dev11
 
