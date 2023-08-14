@@ -19,6 +19,13 @@ spring:
           - data-id: content-service-${spring.profiles.active}.yaml
             group: EducationPlatform
             refresh: true
+        shared-configs:
+          - data-id: swagger-${spring.profiles.active}.yaml
+            group: EducationPlatform-common
+            refresh: true
+          - data-id: logging-${spring.profiles.active}.yaml
+            group: EducationPlatform-common
+            refresh: true
   profiles:
     active: dev11
 
