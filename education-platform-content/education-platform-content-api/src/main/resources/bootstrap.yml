@@ -7,17 +7,17 @@ spring:
       server-addr: 192.168.101.65:8848
       discovery:
         namespace: ${spring.profiles.active}
-        group: EducationPlatform
+        group: EducationPlatform-project
         username: nacos
         password: nacos
       config:
         namespace: ${spring.profiles.active}
-        group: EducationPlatform
+        group: EducationPlatform-project
         file-extension: yaml
         refresh-enabled: true
         extension-configs:
           - data-id: content-service-${spring.profiles.active}.yaml
-            group: EducationPlatform
+            group: EducationPlatform-project
             refresh: true
         shared-configs:
           - data-id: swagger-${spring.profiles.active}.yaml
