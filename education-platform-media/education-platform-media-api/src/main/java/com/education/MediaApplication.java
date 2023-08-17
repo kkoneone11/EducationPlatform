@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableSwagger2Doc
 @SpringBootApplication
 @EnableDiscoveryClient
-@ComponentScan("com.education.media.service.mapper")
+@ComponentScan("com.education.media")
 public class MediaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MediaApplication.class, args);

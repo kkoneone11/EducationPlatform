@@ -8,6 +8,8 @@ spring:
       discovery:
         namespace: ${spring.profiles.active}
         group: EducationPlatform-project
+        username: nacos
+        password: nacos
       config:
         namespace: ${spring.profiles.active}
         group: EducationPlatform-project

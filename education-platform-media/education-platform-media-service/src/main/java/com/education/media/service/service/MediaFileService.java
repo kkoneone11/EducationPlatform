@@ -4,6 +4,8 @@ package com.education.media.service.service;
 import com.education.base.model.page.PageParams;
 import com.education.base.model.page.PageResult;
 import com.education.media.model.dto.QueryMediaParamsDto;
+import com.education.media.model.dto.UploadFileParamsDto;
+import com.education.media.model.dto.UploadFileResultDto;
 import com.education.media.model.po.MediaFiles;
 
 /**
@@ -24,5 +26,8 @@ public interface MediaFileService {
  */
  public PageResult<MediaFiles> queryMediaFiels(Long companyId, PageParams pageParams, QueryMediaParamsDto queryMediaParamsDto);
 
+ UploadFileResultDto uploadFile(Long companyId, UploadFileParamsDto uploadFileParamsDto, String localFilePath);
+
+ public MediaFiles addMediaFilesToDb(Long companyId,String fileMd5,UploadFileParamsDto uploadFileParamsDto,String bucket,String objectName);
 
 }

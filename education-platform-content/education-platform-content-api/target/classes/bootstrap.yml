@@ -17,7 +17,7 @@ spring:
         refresh-enabled: true
         extension-configs:
           - data-id: content-service-${spring.profiles.active}.yaml
-            group: EducationPlatform
+            group: EducationPlatform-project
             refresh: true
         shared-configs:
           - data-id: swagger-${spring.profiles.active}.yaml
