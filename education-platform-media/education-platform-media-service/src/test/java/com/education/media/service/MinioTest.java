@@ -72,4 +72,26 @@ public class MinioTest {
             e.printStackTrace();
         }
     }
+
+
+
+    //将分块文件上传至minio
+    @Test
+    public void uploadChunk(){
+        String chunkFolderPath = "D:\\develop\\upload\\chunk\\";
+        File chunkFolder = new File(chunkFolderPath);
+        //分块文件
+        File[] files = chunkFolder.listFiles();
+        //将分块文件上传至minio
+        for (int i = 0; i < files.length; i++) {
+            try {
+                UploadObjectArgs uploadObjectArgs = UploadObjectArgs.builder().bucket("testbucket").object("chunk/" + i).filename(files[i].getAbsolutePath()).build();
+                minioClient.uploadObject(uploadObjectArgs);
+                System.out.println("上传分块成功"+i);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 }

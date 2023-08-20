@@ -1,12 +1,14 @@
 package com.education.media.service.service;
 
 
+import com.education.base.model.RestResponse;
 import com.education.base.model.page.PageParams;
 import com.education.base.model.page.PageResult;
 import com.education.media.model.dto.QueryMediaParamsDto;
 import com.education.media.model.dto.UploadFileParamsDto;
 import com.education.media.model.dto.UploadFileResultDto;
 import com.education.media.model.po.MediaFiles;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @description 媒资文件管理业务类
@@ -24,10 +26,17 @@ public interface MediaFileService {
   * @author Mr.M
   * @date 2022/9/10 8:57
  */
- public PageResult<MediaFiles> queryMediaFiels(Long companyId, PageParams pageParams, QueryMediaParamsDto queryMediaParamsDto);
+ PageResult<MediaFiles> queryMediaFiels(Long companyId, PageParams pageParams, QueryMediaParamsDto queryMediaParamsDto);
 
  UploadFileResultDto uploadFile(Long companyId, UploadFileParamsDto uploadFileParamsDto, String localFilePath);
 
- public MediaFiles addMediaFilesToDb(Long companyId,String fileMd5,UploadFileParamsDto uploadFileParamsDto,String bucket,String objectName);
+ MediaFiles addMediaFilesToDb(Long companyId,String fileMd5,UploadFileParamsDto uploadFileParamsDto,String bucket,String objectName);
 
+ RestResponse<Boolean> checkfile(String fileMd5);
+
+ RestResponse<Boolean> checkChunk(String fileMd5, int chunkIndex);
+
+ RestResponse uploadChunk(String fileMd5,int chunk,String localChunkFilePath);
+
+ RestResponse mergechunks(Long companyId,String fileMd5,int chunkTotal,UploadFileParamsDto uploadFileParamsDto);
 }
