@@ -9,9 +9,11 @@ import com.education.base.model.page.PageParams;
 import com.education.base.model.page.PageResult;
 import com.education.media.model.dto.UploadFileParamsDto;
 import com.education.media.model.dto.UploadFileResultDto;
+import com.education.media.model.po.MediaProcess;
 import com.education.media.service.mapper.MediaFilesMapper;
 import com.education.media.model.dto.QueryMediaParamsDto;
 import com.education.media.model.po.MediaFiles;
+import com.education.media.service.mapper.MediaProcessMapper;
 import com.education.media.service.service.MediaFileService;
 import com.j256.simplemagic.ContentInfo;
 import com.j256.simplemagic.ContentInfoUtil;
@@ -51,6 +53,8 @@ public class MediaFileServiceImpl extends ServiceImpl<MediaFilesMapper,MediaFile
 
    @Autowired
    private MediaFileService mediaFileService;
+
+   private MediaProcessMapper mediaProcessMapper;
 
     //普通文件桶
     @Value("${minio.bucket.files}")
@@ -213,6 +217,7 @@ public class MediaFileServiceImpl extends ServiceImpl<MediaFilesMapper,MediaFile
             mediaFiles.setId(fileMd5);
             mediaFiles.setFileId(fileMd5);
             mediaFiles.setCompanyId(companyId);
+            //媒体类型
             mediaFiles.setUrl("/" + bucket + "/" + objectName);
             mediaFiles.setBucket(bucket);
             mediaFiles.setFilePath(objectName);
@@ -225,13 +230,35 @@ public class MediaFileServiceImpl extends ServiceImpl<MediaFilesMapper,MediaFile
                 log.error("保存文件信息到数据库失败,{}",mediaFiles.toString());
                 EducationException.cast("保存文件信息失败");
             }
+            //添加到待处理任务表
+            addWaitingTask(mediaFiles);
             log.debug("保存文件信息到数据库成功,{}",mediaFiles.toString());
 
         }
         return mediaFiles;
-
     }
 
+    /**
+     * 添加待处理任务
+     * @param mediaFiles
+     */
+    public void addWaitingTask(MediaFiles mediaFiles){
+        //根据后缀名查看mimeType
+        String filename = mediaFiles.getFilename();
+        String exension = filename.substring(filename.lastIndexOf("."));
+        //获取mimeType 如果是avi类型的我们才处理
+        String mimeType = getMimeType(exension);
+        if(mimeType.equals("video/x-msvideo")){
+            //添加到视频待处理表
+            MediaProcess mediaProcess = new MediaProcess();
+            BeanUtils.copyProperties(mediaFiles,mediaProcess);
+            mediaProcess.setStatus("1");//未处理
+            mediaProcess.setFailCount(0);//失败次数默认为0 最大为3
+            mediaProcessMapper.insert(mediaProcess);
+        }
+
+
+    }
 
     /**
      * @description 检查文件是否存在
