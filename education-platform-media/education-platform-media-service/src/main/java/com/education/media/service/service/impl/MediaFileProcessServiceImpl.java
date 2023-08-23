@@ -33,4 +33,11 @@ public class MediaFileProcessServiceImpl extends ServiceImpl<MediaProcessMapper,
     public List<MediaProcess> getMediaProcessList(int shardIndex, int shardTotal, int count) {
         return mediaProcessMapper.selectListByShardIndex(shardTotal,shardIndex,count);
     }
+
+    @Override
+    public boolean startTask(long id) {
+        int result = mediaProcessMapper.startTask(id);
+        return result <=0 ? false : true;
+
+    }
 }
