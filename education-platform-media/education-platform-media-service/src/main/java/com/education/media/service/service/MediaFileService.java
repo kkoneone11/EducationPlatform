@@ -10,6 +10,8 @@ import com.education.media.model.dto.UploadFileResultDto;
 import com.education.media.model.po.MediaFiles;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.File;
+
 /**
  * @description 媒资文件管理业务类
  * @author Mr.M
@@ -39,4 +41,8 @@ public interface MediaFileService {
  RestResponse uploadChunk(String fileMd5,int chunk,String localChunkFilePath);
 
  RestResponse mergechunks(Long companyId,String fileMd5,int chunkTotal,UploadFileParamsDto uploadFileParamsDto);
+
+ File downloadFileFromMinIO(String bucket, String objectName);
+
+ boolean addMediaFilesToMinIO(String localFilePath,String mimeType,String bucket,String objectName);
 }

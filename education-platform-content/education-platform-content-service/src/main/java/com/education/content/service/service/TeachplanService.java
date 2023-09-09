@@ -1,9 +1,11 @@
 package com.education.content.service.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.education.content.model.dto.BindTeachplanMediaDto;
 import com.education.content.model.dto.SaveTeachplanDto;
 import com.education.content.model.dto.TeachplanDto;
 import com.education.content.model.po.Teachplan;
+import com.education.content.model.po.TeachplanMedia;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -23,4 +25,6 @@ public interface TeachplanService extends IService<Teachplan> {
     void deleteTeachplan(@PathVariable Long teachplanId);
 
     void moveTeachplan(String moveType , Long teachplanId);
+
+    TeachplanMedia associationMedia(BindTeachplanMediaDto bindTeachplanMediaDto);
 }

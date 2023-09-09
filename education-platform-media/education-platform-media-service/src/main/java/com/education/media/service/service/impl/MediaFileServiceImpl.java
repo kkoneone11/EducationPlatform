@@ -54,6 +54,7 @@ public class MediaFileServiceImpl extends ServiceImpl<MediaFilesMapper,MediaFile
    @Autowired
    private MediaFileService mediaFileService;
 
+   @Autowired
    private MediaProcessMapper mediaProcessMapper;
 
     //普通文件桶
@@ -174,7 +175,7 @@ public class MediaFileServiceImpl extends ServiceImpl<MediaFilesMapper,MediaFile
      * @return void
      * @date 2022/10/12 21:22
      */
-   private boolean addMediaFilesToMinIO(String localFilePath,String mimeType,String bucket,String objectName){
+   public boolean addMediaFilesToMinIO(String localFilePath,String mimeType,String bucket,String objectName){
        try{
            //先创建一个testbucket 然后上传到minio
            UploadObjectArgs testbucket = UploadObjectArgs.builder()
@@ -449,7 +450,7 @@ public class MediaFileServiceImpl extends ServiceImpl<MediaFilesMapper,MediaFile
      * @param objectName 对象名称
      * @return 下载后的文件
      */
-    private File downloadFileFromMinIO(String bucket,String objectName){
+    public File downloadFileFromMinIO(String bucket, String objectName){
 
         //先创建一个临时文件和输出流
         File minioFile = null;

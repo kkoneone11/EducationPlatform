@@ -24,11 +24,16 @@ public interface MediaProcessMapper extends BaseMapper<MediaProcess> {
      * @param count 任务数
      * @return
      */
-    @Select("select * from media_process t where t.id %{shardTotal} = %{shardIndex} and (t.status = '1' or t.status = '3') and t.fail_count < 3 limit #{count}")
+    @Select("select * from media_process t where t.id % #{shardTotal} = #{shardIndex} and (t.status = '1' or t.status = '3') and t.fail_count < 3 limit #{count}")
     List<MediaProcess> selectListByShardIndex(@Param("shardTotal") int shardTotal,
                                               @Param("shardIndex") int shardIndex,
                                               @Param("count") int count);
 
+    /**
+     * 任务抢占 更新自带行级锁
+     * @param id
+     * @return
+     */
     @Update("update media_process m set m.status='4' where (m.status='1' or m.status='3') and m.fail_count<3 and m.id=#{id}")
     int startTask(@Param("id") long id);
 }
