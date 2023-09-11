@@ -196,6 +196,12 @@ public class MediaFileServiceImpl extends ServiceImpl<MediaFilesMapper,MediaFile
        return false;
    }
 
+    @Override
+    public MediaFiles getFileById(String mediaId) {
+        MediaFiles mediaFiles = mediaFilesMapper.selectById(mediaId);
+        return mediaFiles;
+    }
+
     /**
      * @description 将文件信息添加到文件表
      * @param companyId  机构id
