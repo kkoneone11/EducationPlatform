@@ -17,4 +17,8 @@ public interface CoursePublishService {
      * @date 2022/9/16 15:36
      */
     CoursePreviewDto getCoursePreviewInfo(Long courseId);
+
+    void commitAudit(Long companyId,Long courseId);
+
+    void publish(Long companyId,Long courseId);
 }

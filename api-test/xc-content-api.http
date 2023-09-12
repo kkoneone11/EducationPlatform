@@ -142,3 +142,6 @@ Content-Type: application/octet-stream
 
 < d:/develop/upload/test3.jpg
 
+
+### 课程发布
+POST {{content_host}}/content/coursepublish/2

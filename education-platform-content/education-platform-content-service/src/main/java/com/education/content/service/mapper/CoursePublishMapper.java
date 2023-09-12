@@ -2,6 +2,7 @@ package com.education.content.service.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.education.content.model.po.CoursePublish;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -10,6 +11,7 @@ import com.education.content.model.po.CoursePublish;
  *
  * @author kkoneone
  */
+@Mapper
 public interface CoursePublishMapper extends BaseMapper<CoursePublish> {
 
 }
