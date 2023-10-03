@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.education")
 //@MapperScan(basePackages = {"com.education.content.service.mapper"})
-//@ComponentScan("com.education.content.service.mapper")
+//@ComponentScan("com.education.messagesdk")
 @EnableDiscoveryClient
 public class EducationPlatformContentServiceApplication {
 

@@ -1,6 +1,7 @@
 package com.education.content.service.service.Impl;
 
 import com.alibaba.fastjson.JSON;
+import com.education.base.exception.CommonError;
 import com.education.base.exception.EducationException;
 import com.education.content.model.dto.CourseBaseInfoDto;
 import com.education.content.model.dto.CoursePreviewDto;
@@ -17,11 +18,15 @@ import com.education.content.service.service.CourseBaseInfoService;
 import com.education.content.service.service.CoursePublishPreService;
 import com.education.content.service.service.CoursePublishService;
 import com.education.content.service.service.TeachplanService;
+import com.education.messagesdk.model.po.MqMessage;
+import com.education.messagesdk.service.MqMessageService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -51,6 +56,9 @@ public class CoursePublishServiceImpl implements CoursePublishService {
 
     @Autowired
     CoursePublishMapper coursePublishMapper;
+
+    @Autowired
+    MqMessageService mqMessageService;
 
 
 
@@ -141,6 +149,7 @@ public class CoursePublishServiceImpl implements CoursePublishService {
     }
 
     @Override
+    @Transactional
     public void publish(Long companyId, Long courseId) {
         //约束校验
         //先查课程预发布表看是否有记录检验是否是先审核
@@ -187,10 +196,10 @@ public class CoursePublishServiceImpl implements CoursePublishService {
         CoursePublish coursePublishUpdate = coursePublishMapper.selectById(courseId);
         if(coursePublishUpdate == null){
             //不存在则插入
-            coursePublishMapper.insert(coursePublishUpdate);
+            coursePublishMapper.insert(coursePublish);
         }else{
             //存在则更新
-            coursePublishMapper.updateById(coursePublishUpdate);
+            coursePublishMapper.updateById(coursePublish);
         }
         //更新课程基本信息表的发布状态
         CourseBase courseBase = courseBaseMapper.selectById(courseId);
@@ -199,11 +208,14 @@ public class CoursePublishServiceImpl implements CoursePublishService {
 
     }
 
-    /**
+    /** [{"code":"203001","desc":"未发布"},{"code":"203002","desc":"已发布"},{"code":"203003","desc":"下线"}]
      * 保存消息表记录
      * @param courseId
      */
     private void saveCoursePublishMessage(Long courseId) {
-
+        MqMessage mqMessage = mqMessageService.addMessage("course_publish", String.valueOf(courseId), null, null);
+        if(mqMessage==null){
+            EducationException.cast(CommonError.UNKOWN_ERROR);
+        }
     }
 }

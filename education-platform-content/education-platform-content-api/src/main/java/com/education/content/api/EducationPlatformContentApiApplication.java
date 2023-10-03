@@ -10,10 +10,10 @@ import org.springframework.context.annotation.ComponentScan;
 
 
 @EnableSwagger2Doc
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.education.content")
 //@MapperScan(basePackages = {"com.education.content.service.mapper"})
 @EnableDiscoveryClient
-@ComponentScan("com.education.content")
+//@ComponentScan("com.education.content")
 public class EducationPlatformContentApiApplication {
 
     public static void main(String[] args) {

@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
-        <artifactId>education-platform-content</artifactId>
         <groupId>com.education</groupId>
+        <artifactId>education-platform-content</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+
 
     <artifactId>education-platform-content-api</artifactId>
 
@@ -22,6 +22,11 @@
         <dependency>
             <groupId>com.education</groupId>
             <artifactId>education-platform-content-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.education</groupId>
+            <artifactId>education-platform-content-model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
@@ -63,10 +68,6 @@
             <version>1.9.0.RELEASE</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.spring4all</groupId>
-            <artifactId>swagger-spring-boot-starter</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

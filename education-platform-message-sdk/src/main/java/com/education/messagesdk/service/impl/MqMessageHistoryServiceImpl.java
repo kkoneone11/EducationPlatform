@@ -1,8 +1,9 @@
-package com.education.content.service.impl;
+package com.education.messagesdk.service.impl;
 
-import com.education.content.model.po.MqMessageHistory;
-import com.education.content.service.MqMessageHistoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.education.messagesdk.mapper.MqMessageHistoryMapper;
+import com.education.messagesdk.model.po.MqMessageHistory;
+import com.education.messagesdk.service.MqMessageHistoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
  *  服务实现类
  * </p>
  *
- * @author kkoneone
+ * @author itcast
  */
 @Slf4j
 @Service
