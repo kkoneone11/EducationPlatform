@@ -23,6 +23,7 @@ import io.minio.messages.DeleteObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -114,7 +115,11 @@ public class MediaFileServiceImpl extends ServiceImpl<MediaFilesMapper,MediaFile
      String defaultFolderPath = getDefaultFolderPath();
      //1.存储到minio
      //存储到minio中的对象名(带目录)
-     String objectName = defaultFolderPath + fileMd5 + extension;
+     String objectName = uploadFileParamsDto.getObjectName();
+     if(StringUtils.isEmpty(objectName)){
+         objectName =  defaultFolderPath + fileMd5 + extension;
+     }
+     //String objectName = defaultFolderPath + fileMd5 + extension;
      boolean b = addMediaFilesToMinIO(localFilePath, mimeType, bucket_Files, objectName);
      uploadFileParamsDto.setFileSize(file.length());
      //2.存储到media_file表
@@ -124,6 +129,38 @@ public class MediaFileServiceImpl extends ServiceImpl<MediaFilesMapper,MediaFile
      BeanUtils.copyProperties(mediaFiles, uploadFileResultDto);
      return uploadFileResultDto;
    }
+
+//    @Override
+//    public UploadFileResultDto uploadFile(Long companyId, UploadFileParamsDto uploadFileParamsDto, String localFilePath, String objectName) {
+//        //先根据文件路径看看文件是否存在
+//        File file = new File(localFilePath);
+//        if(!file.exists()){
+//            EducationException.cast("文件不存在");
+//        }
+//        //获取文件名称
+//        String filename = uploadFileParamsDto.getFilename();
+//        //获取文件扩展名
+//        String extension = filename.substring(filename.lastIndexOf("."));
+//        //根据文件扩展名获取mimeType
+//        String mimeType = getMimeType(extension);
+//        //根据文件获得文件md5
+//        String fileMd5 = getFileMd5(file);
+//        //获取minio中文件的默认目录
+//        String defaultFolderPath = getDefaultFolderPath();
+//        //1.存储到minio
+//        //存储到minio中的对象名(带目录)
+//        if(StringUtils.isEmpty(objectName)){
+//            objectName = defaultFolderPath + fileMd5 + extension;
+//        }
+//        boolean b = addMediaFilesToMinIO(localFilePath, mimeType, bucket_Files, objectName);
+//        uploadFileParamsDto.setFileSize(file.length());
+//        //2.存储到media_file表
+//        MediaFiles mediaFiles = mediaFileService.addMediaFilesToDb(companyId, fileMd5, uploadFileParamsDto, bucket_Files, objectName);
+//        //准备返回数据
+//        UploadFileResultDto uploadFileResultDto = new UploadFileResultDto();
+//        BeanUtils.copyProperties(mediaFiles, uploadFileResultDto);
+//        return uploadFileResultDto;
+//    }
 
     /**
      * 获取mimeType

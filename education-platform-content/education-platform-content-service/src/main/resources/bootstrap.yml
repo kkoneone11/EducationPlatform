@@ -19,6 +19,10 @@ spring:
           - data-id: freemarker-config-${spring.profiles.active}.yaml
             group: EducationPlatform-common
             refresh: true
+          - data-id: feign-${spring.profiles.active}.yaml
+            group: EducationPlatform-common
+            refresh: true
+
 
   #profiles默认为dev
   profiles:

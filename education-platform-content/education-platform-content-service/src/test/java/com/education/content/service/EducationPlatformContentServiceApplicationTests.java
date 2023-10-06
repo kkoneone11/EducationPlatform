@@ -12,10 +12,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 import java.util.List;
 
 @SpringBootTest
+//@EnableFeignClients(basePackages={"com.education.content.service.feignclient"})
 class EducationPlatformContentServiceApplicationTests {
 
     @Autowired

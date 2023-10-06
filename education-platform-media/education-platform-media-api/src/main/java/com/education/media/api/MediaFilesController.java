@@ -10,6 +10,7 @@ import com.education.media.model.po.MediaFiles;
 import com.education.media.service.service.MediaFileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +60,8 @@ public class MediaFilesController {
         //文件大小
         long fileSize = upload.getSize();
         uploadFileParamsDto.setFileSize(fileSize);
+
+        uploadFileParamsDto.setObjectName(objectName);
         //创建临时文件
         File tempFile = File.createTempFile("minio", "temp");
         //上传的文件拷贝到临时文件

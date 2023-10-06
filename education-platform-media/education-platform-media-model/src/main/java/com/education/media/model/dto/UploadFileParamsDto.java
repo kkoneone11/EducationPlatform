@@ -39,5 +39,9 @@ public class UploadFileParamsDto {
      * 备注
      */
     private String remark;
+    /**
+     * minio的存储名
+     */
+    private String objectName;
 
 }
