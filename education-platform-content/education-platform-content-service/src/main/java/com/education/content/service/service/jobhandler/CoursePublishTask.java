@@ -66,6 +66,7 @@ public class CoursePublishTask extends MessageProcessAbstract {
             log.debug("课程静态化已处理直接返回，课程id:{}",courseId);
             return ;
         }
+
         //生成静态网页
         File file = coursePublishService.generateCourseHtml(Long.valueOf(courseId));
         if(file == null){
@@ -81,12 +82,24 @@ public class CoursePublishTask extends MessageProcessAbstract {
     //保存课程索引信息
     private void saveCourseIndex(MqMessage mqMessage, long courseId) {
         log.debug("保存课程索引信息,课程id:{}",courseId);
+        Long id = mqMessage.getId();
+        MqMessageService mqMessageService = this.getMqMessageService();
+        int stageTwo = mqMessageService.getStageTwo(id);
+        if(stageTwo > 0){
+            log.debug("当前阶段为创建课程索引任务，已完成，无需再次处理，任务信息：{}", mqMessage);
+            return;
+        }
+        Boolean isSuccess = coursePublishService.saveCourseIndex(courseId);
+        if(isSuccess){
+            mqMessageService.completedStageTwo(id);
+        }
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
+
     //将课程信息缓存到redis
     private void saveCourseCache(MqMessage mqMessage, long courseId) {
         log.debug("将课程信息缓存至redis，课程id：{}",courseId);

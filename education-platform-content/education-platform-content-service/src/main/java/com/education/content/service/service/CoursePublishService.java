@@ -1,6 +1,7 @@
 package com.education.content.service.service;
 
 import com.education.content.model.dto.CoursePreviewDto;
+import com.education.search.po.CourseIndex;
 
 import java.io.File;
 
@@ -40,4 +41,11 @@ public interface CoursePublishService {
      * @date 2022/9/23 16:59
      */
     void  uploadCourseHtml(Long courseId,File file);
+
+    /**
+     * 保存课程索引
+     * @param courseId
+     * @return Boolean
+     */
+    Boolean saveCourseIndex(Long courseId);
 }

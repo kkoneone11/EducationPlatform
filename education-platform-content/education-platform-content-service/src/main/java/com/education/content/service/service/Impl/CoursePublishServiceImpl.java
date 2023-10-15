@@ -12,6 +12,7 @@ import com.education.content.model.po.CoursePublish;
 import com.education.content.model.po.CoursePublishPre;
 import com.education.content.service.config.MultipartSupportConfig;
 import com.education.content.service.feignclient.MediaServiceClient;
+import com.education.content.service.feignclient.SearchServiceClient;
 import com.education.content.service.mapper.CourseBaseMapper;
 import com.education.content.service.mapper.CourseMarketMapper;
 import com.education.content.service.mapper.CoursePublishMapper;
@@ -22,6 +23,7 @@ import com.education.content.service.service.CoursePublishService;
 import com.education.content.service.service.TeachplanService;
 import com.education.messagesdk.model.po.MqMessage;
 import com.education.messagesdk.service.MqMessageService;
+import com.education.search.po.CourseIndex;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;
@@ -76,6 +78,9 @@ public class CoursePublishServiceImpl implements CoursePublishService {
 
     @Autowired
     MediaServiceClient mediaServiceClient;
+
+    @Autowired
+    SearchServiceClient searchServiceClient;
 
 
 
@@ -295,5 +300,22 @@ public class CoursePublishServiceImpl implements CoursePublishService {
         if(course==null){
             EducationException.cast("上传静态文件异常");
         }
+    }
+
+    @Override
+    public Boolean saveCourseIndex(Long courseId) {
+        //1.取出课程发布信息
+        CoursePublish coursePublish = coursePublishMapper.selectById(courseId);
+        //2.拷贝到courseindex
+        CourseIndex courseIndex = new CourseIndex();
+        //拷贝内容到index中
+        BeanUtils.copyProperties(coursePublish,courseIndex);
+        //调用远程api
+        Boolean isSuccess = searchServiceClient.add(courseIndex);
+        if(!isSuccess){
+            EducationException.cast("添加索引失败");
+        }
+        return true;
+
     }
 }
