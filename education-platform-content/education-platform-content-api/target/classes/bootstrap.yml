@@ -21,6 +21,9 @@ spring:
           - data-id: content-service-${spring.profiles.active}.yaml
             group: EducationPlatform-project
             refresh: true
+          - data-id: search-${spring.profiles.active}.yaml
+            group: EducationPlatform-project
+            refresh: true
         shared-configs:
           - data-id: swagger-${spring.profiles.active}.yaml
             group: EducationPlatform-common
@@ -34,6 +37,7 @@ spring:
           - data-id: feign-${spring.profiles.active}.yaml
             group: EducationPlatform-common
             refresh: true
+
   profiles:
     active: dev11
 
