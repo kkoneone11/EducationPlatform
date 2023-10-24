@@ -2,6 +2,7 @@ package com.education.content.api.controller;
 
 import com.education.base.model.page.PageParams;
 import com.education.base.model.page.PageResult;
+import com.education.content.api.util.SecurityUtil;
 import com.education.content.model.dto.AddCourseDto;
 import com.education.content.model.dto.CourseBaseInfoDto;
 import com.education.content.model.dto.EditCourseDto;
@@ -61,8 +62,9 @@ public class CourseBaseInfoController {
     public CourseBaseInfoDto getCourseBaseById(@PathVariable Long courseId){
 
         //取出当前用户身份
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(principal);
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        SecurityUtil.XcUser user = SecurityUtil.getUser();
+        System.out.println(user);
         return courseBaseInfoService.getCourseBaseInfo(courseId);
     }
 

@@ -197,5 +197,7 @@ GET http://localhost:63040/content/course/2
 Authorization: Bearer
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsieHVlY2hlbmctcGx1cyJdLCJ1c2VyX25hbWUiOiJ6aGFuZ3NhbiIsInNjb3BlIjpbImFsbCJdLCJleHAiOjE2OTczODUyMzIsImF1dGhvcml0aWVzIjpbInAxIl0sImp0aSI6ImEyMjYzNzU3LTJkNTMtNGZmZS04Mjk5LWQwY2ZiMzY2ZjQzYyIsImNsaWVudF9pZCI6IlhjV2ViQXBwIn0.DXUQRTy96HoTY7jZ_BJkVHdvhd98zFHR5r21jtOwvAw
 
+### 密码模式
+POST {{auth_host}}/auth/oauth/token?client_id=XcWebApp&client_secret=XcWebApp&grant_type=password&username=stu1&password=111111
 
 
