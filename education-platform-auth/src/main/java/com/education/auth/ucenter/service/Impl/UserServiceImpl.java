@@ -3,13 +3,20 @@ package com.education.auth.ucenter.service.Impl;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.education.auth.ucenter.mapper.XcUserMapper;
+import com.education.auth.ucenter.model.dto.AuthParamsDto;
+import com.education.auth.ucenter.model.dto.XcUserExt;
 import com.education.auth.ucenter.model.po.XcUser;
+import com.education.auth.ucenter.service.AuthService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import sun.security.krb5.internal.AuthContext;
 
 /**
  * @Author：kkoneone11
@@ -17,33 +24,63 @@ import org.springframework.stereotype.Service;
  * @Date：2023/10/16 13:04
  */
 @Service
+@Slf4j
 public class UserServiceImpl implements UserDetailsService {
 
     @Autowired
     XcUserMapper xcUserMapper;
+
+    @Autowired
+    ApplicationContext applicationContext;
+
+//    @Autowired
+//    AuthService authService;
+
+
     /**
-     * 根据账号查询用户信息
+     * 根据账号查询 并组成用户信息
      * @param s
      * @return  org.springframework.security.core.userdetails.UserDetails
      * @throws UsernameNotFoundException
      */
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        XcUser user = xcUserMapper.selectOne(new LambdaQueryWrapper<XcUser>().eq(XcUser::getUsername, s));
-        if(user == null){
-            return null;
+        AuthParamsDto authParamsDto = null;
+        try{
+            //将认证参数转化为AuthParamsDto
+            authParamsDto = JSON.parseObject(s, AuthParamsDto.class);
+        }catch (Exception e){
+            log.info("认证请求不符合项目要求：{}",s);
+            e.printStackTrace();
         }
-        //取出数据库存储的正确密码
-        String password = user.getPassword();
-        //用户权限,如果不加报Cannot pass a null GrantedAuthority collection
-        String[] authorities= {"p1"};
-        //为了安全令牌中不放密码
-        user.setPassword(null);
-        //将userDetail的name转化存储为user，这样可以存储更多用户信息
-        String userString = JSON.toJSONString(user);
-        //创建UserDetails对象,权限信息待实现授权功能时再向UserDetail中加入
-        UserDetails userDetails = User.withUsername(userString).password(password).authorities(authorities).build();
 
+
+         //认证
+        String authType = authParamsDto.getAuthType();
+        AuthService authService = applicationContext.getBean(authType + "_authservice", AuthService.class);
+        XcUserExt xcUserExt = authService.execute(authParamsDto);
+
+
+        return getUserPrincipal(xcUserExt);
+    }
+
+    /**
+     * @description 查询用户信息
+     * @param xcUserExt  用户id，主键
+     * @return com.education.ucenter.model.po.XcUser 用户信息
+     * @param xcUserExt
+     * @return
+     */
+    public UserDetails getUserPrincipal(XcUserExt xcUserExt){
+        //用户权限,如果不加报Cannot pass a null GrantedAuthority collection
+        String[] authorities = {"p1"};
+        String password = xcUserExt.getPassword();
+        //为了安全在令牌中不放密码
+        xcUserExt.setPassword(null);
+        //将user对象转json
+        String userString = JSON.toJSONString(xcUserExt);
+        //创建UserDetails对象
+        UserDetails userDetails = User.withUsername(userString).password(password).authorities(authorities).build();
         return userDetails;
     }
 }
