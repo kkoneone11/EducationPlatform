@@ -3,6 +3,7 @@ package com.education.auth;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication(scanBasePackages = "com.education")
+@EnableFeignClients(basePackages = "com.education.auth.ucenter.feignclient")
 public class AuthApplication {
 
     public static void main(String[] args) {

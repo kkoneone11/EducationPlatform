@@ -202,5 +202,19 @@ POST {{auth_host}}/auth/oauth/token?client_id=XcWebApp&client_secret=XcWebApp&gr
 
 
 ###密码模式
-POST {{auth_host}}/auth/oauth/token?client_id=XcWebApp&client_secret=XcWebApp&grant_type=password&username={"username":"stu1","authType":"password","password":"111112"}
+POST {{auth_host}}/auth/oauth/token?client_id=XcWebApp&client_secret=XcWebApp&grant_type=password&username={"username":"stu1","authType":"password","password":"111111"}&key=checkcode:1a4cfa0762564257bb4b549a3faa50d5
 
+### 申请验证码
+POST {{checkcode_host}}/checkcode/pic
+
+### 校验验证码
+POST {{checkcode_host}}/checkcode/verify?key=checkcode:dee70c1fd2d94211bbfa170a23b9728e
+
+### 测试验证码1 ×
+POST http://www.51xuecheng.cn/api/checkcode/checkcode/pic
+
+### 测试验证码2 ×
+POST {{gateway_host}}/checkcode/
+
+### 测试验证码3 √
+POST {{checkcode_host}}/checkcode/pic

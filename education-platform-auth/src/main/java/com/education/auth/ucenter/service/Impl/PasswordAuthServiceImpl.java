@@ -2,12 +2,14 @@ package com.education.auth.ucenter.service.Impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.education.auth.ucenter.feignclient.CheckCodeClient;
 import com.education.auth.ucenter.mapper.XcUserMapper;
 import com.education.auth.ucenter.model.dto.AuthParamsDto;
 import com.education.auth.ucenter.model.dto.XcUserExt;
 import com.education.auth.ucenter.model.po.XcUser;
 import com.education.auth.ucenter.service.AuthService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -30,8 +32,24 @@ public class PasswordAuthServiceImpl implements AuthService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    CheckCodeClient checkCodeClient;
+
     @Override
     public XcUserExt execute(AuthParamsDto authParamsDto) {
+        String checkcode = authParamsDto.getCheckcode();
+        String checkcodekey = authParamsDto.getCheckcodekey();
+
+        if(StringUtils.isBlank(checkcode)
+                || StringUtils.isBlank(checkcodekey)){
+            throw new RuntimeException("验证码不存在");
+        }
+        Boolean verify = checkCodeClient.verify(checkcodekey, checkcode);
+        if(!verify){
+            throw new RuntimeException("验证码输入错误");
+        }
+
+
         String username = authParamsDto.getUsername();
         XcUser user = xcUserMapper.selectOne(new LambdaQueryWrapper<XcUser>().eq(XcUser::getUsername, username));
         //用户不存在
