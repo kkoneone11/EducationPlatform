@@ -214,7 +214,7 @@ POST {{checkcode_host}}/checkcode/verify?key=checkcode:dee70c1fd2d94211bbfa170a2
 POST http://www.51xuecheng.cn/api/checkcode/checkcode/pic
 
 ### 测试验证码2 ×
-POST {{gateway_host}}/checkcode/
+POST {{gateway_host}}/checkcode/pic
 
 ### 测试验证码3 √
 POST {{checkcode_host}}/checkcode/pic
