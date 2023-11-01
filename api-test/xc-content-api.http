@@ -183,7 +183,7 @@ GET http://www.51xuecheng.cn/api/search/search/course/list?pageNo=1&pageSize=16&
 Content-Type: application/json
 
 ### 获取课程
-GET {{gateway_host}}/search/search/course/list?pageNo=1&pageSize=16&keywords=
+GET {{gateway_host}}/search/course/list?pageNo=1&pageSize=16&keywords=
 Content-Type: application/json
 
 ### 密码模式
