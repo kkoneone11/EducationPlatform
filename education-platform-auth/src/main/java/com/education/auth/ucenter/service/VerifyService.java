@@ -1,6 +1,7 @@
 package com.education.auth.ucenter.service;
 
 import com.education.auth.ucenter.model.dto.FindPswDto;
+import com.education.auth.ucenter.model.dto.RegisterDto;
 
 /**
  * @Author：kkoneone11
@@ -10,4 +11,6 @@ import com.education.auth.ucenter.model.dto.FindPswDto;
 public interface VerifyService {
 
     void findPassword(FindPswDto findPswDto);
+
+    void register(RegisterDto registerDto);
 }

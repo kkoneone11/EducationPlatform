@@ -1,6 +1,7 @@
 package com.education.auth.auth.controller;
 
 import com.education.auth.ucenter.model.dto.FindPswDto;
+import com.education.auth.ucenter.model.dto.RegisterDto;
 import com.education.auth.ucenter.service.VerifyService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -25,5 +26,11 @@ public class CheckCodeController {
     @PostMapping("/findpassword")
     public void findPassword(@RequestBody FindPswDto findPswDto){
         verifyService.findPassword(findPswDto);
+    }
+
+    @ApiOperation(value = "注册", tags = "注册")
+    @PostMapping("/register")
+    public void register(@RequestBody RegisterDto registerDto) {
+        verifyService.register(registerDto);
     }
 }

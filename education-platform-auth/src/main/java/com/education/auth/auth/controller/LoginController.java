@@ -2,6 +2,7 @@ package com.education.auth.auth.controller;
 
 
 import com.education.auth.ucenter.mapper.XcUserMapper;
+import com.education.auth.ucenter.model.dto.RegisterDto;
 import com.education.auth.ucenter.model.po.XcUser;
 import com.education.checkcode.config.MailUtil;
 import com.education.checkcode.service.SendCodeService;
@@ -58,6 +59,8 @@ public class LoginController {
         String code = MailUtil.achieveCode();
         sendCodeService.sendEmail(email, code);
     }
+
+
 
 
 
