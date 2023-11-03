@@ -14,10 +14,6 @@ import java.util.Map;
  * @date 2022/9/29 15:59
  */
 public interface CheckCodeService {
-
-
-
-
     /**
      * @description 生成验证码
      * @param checkCodeParamsDto 生成验证码参数
@@ -88,4 +84,6 @@ public interface CheckCodeService {
 
         void remove(String key);
     }
+
+
 }

@@ -44,10 +44,11 @@ public class CourseBaseInfoController {
     @PostMapping("/course/list")
     public PageResult<CourseBase> list(PageParams pageParams,
                                        @RequestBody(required = false) QueryCourseParamsDto queryCourseParams){
-
-        PageResult<CourseBase> courseBasePageResult = courseBaseInfoService.queryCourseBaseList(pageParams, queryCourseParams);
-        return courseBasePageResult;
-
+        //取出用户身份
+        SecurityUtil.XcUser user = SecurityUtil.getUser();
+        //根据当前用户查询对应的机构 然后根据机构id查询对应的课程
+        String companyId = user.getCompanyId();
+        return courseBaseInfoService.queryCourseBaseList(Long.parseLong(companyId),pageParams,queryCourseParams);
     }
 
     @ApiOperation("新增课程接口")
