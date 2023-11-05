@@ -1,6 +1,7 @@
 package com.education.content.service.service;
 
 import com.education.content.model.dto.CoursePreviewDto;
+import com.education.content.model.po.CoursePublish;
 import com.education.search.po.CourseIndex;
 
 import java.io.File;
@@ -48,4 +49,6 @@ public interface CoursePublishService {
      * @return Boolean
      */
     Boolean saveCourseIndex(Long courseId);
+
+    CoursePublish getCoursePublish(Long courseId);
 }

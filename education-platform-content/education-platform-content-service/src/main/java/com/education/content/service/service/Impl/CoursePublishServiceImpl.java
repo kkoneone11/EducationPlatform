@@ -318,4 +318,10 @@ public class CoursePublishServiceImpl implements CoursePublishService {
         return true;
 
     }
+
+    @Override
+    public CoursePublish getCoursePublish(Long courseId) {
+        CoursePublish coursePublish = coursePublishMapper.selectById(courseId);
+        return coursePublish;
+    }
 }

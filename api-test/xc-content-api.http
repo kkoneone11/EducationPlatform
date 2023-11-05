@@ -218,3 +218,6 @@ POST {{gateway_host}}/checkcode/pic
 
 ### 测试验证码3 √
 POST {{checkcode_host}}/checkcode/pic
+
+### 查询课程发布信息
+GET {{content_host}}/content/r/coursepublish/2

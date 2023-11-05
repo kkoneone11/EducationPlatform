@@ -1,6 +1,7 @@
 package com.education.content.api.controller;
 
 import com.education.content.model.dto.CoursePreviewDto;
+import com.education.content.model.po.CoursePublish;
 import com.education.content.service.service.CoursePublishService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
@@ -55,6 +56,19 @@ public class CoursePublishController {
     public void Coursepublish(@PathVariable("courseId") Long courseId){
         Long companyId = 1232141425L;
         coursePublishService.publish(companyId,courseId);
+    }
+
+    /**
+     * 此接口主要提供其它微服务远程调用，所以此接口不用授权，本项目标记此类接口统一以 /r开头。
+     * @param courseId
+     * @return
+     */
+    @ApiOperation("查询课程发布信息")
+    @ResponseBody
+    @GetMapping("/r/coursepublish/{courseId}")
+    public CoursePublish getCoursepublish(@PathVariable("courseId") Long courseId) {
+        CoursePublish coursePublish = coursePublishService.getCoursePublish(courseId);
+        return coursePublish;
     }
 
 }

@@ -48,6 +48,8 @@ public class CourseBaseInfoController {
 
     }
 
+
+
     @ApiOperation("新增课程接口")
     @PostMapping("/course")
     public CourseBaseInfoDto createCourseBase(@RequestBody @Validated AddCourseDto addCourseDto){
