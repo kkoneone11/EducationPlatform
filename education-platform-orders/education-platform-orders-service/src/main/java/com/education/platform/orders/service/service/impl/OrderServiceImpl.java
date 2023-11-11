@@ -70,6 +70,8 @@ public class OrderServiceImpl implements OrderService {
         return payRecordDto;
     }
 
+
+
     /**
      * 保存订单消息
      * @param userId
@@ -149,5 +151,17 @@ public class OrderServiceImpl implements OrderService {
         return payRecord;
     }
 
+    /**
+     * @description 查询支付交易记录
+     * @param payNo  交易记录号
+     * @return com.education.orders.model.po.XcPayRecord
+     * @author kkoneone11
+     * @date 2022/10/20 23:38
+     */
+    @Override
+    public XcPayRecord getPayRecordByPayno(String payNo) {
+        XcPayRecord xcPayRecord = payRecordMapper.selectOne(new LambdaQueryWrapper<XcPayRecord>().eq(XcPayRecord::getPayNo, payNo));
+        return xcPayRecord;
+    }
 
 }
