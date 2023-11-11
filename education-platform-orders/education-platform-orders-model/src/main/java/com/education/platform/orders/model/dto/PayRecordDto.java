@@ -1,6 +1,5 @@
 package com.education.platform.orders.model.dto;
-
-import com.xuecheng.orders.model.po.XcPayRecord;
+import com.education.platform.orders.model.po.XcPayRecord;
 import lombok.Data;
 import lombok.ToString;
 
