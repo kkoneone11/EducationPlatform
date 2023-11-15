@@ -92,4 +92,15 @@ public class OrderController {
         httpResponse.getWriter().close();
     }
 
+    @ApiOperation("查询支付结果")
+    @GetMapping("/payresult")
+    @ResponseBody
+    public PayRecordDto payresult(String payNo) throws IOException {
+
+        PayRecordDto payRecordDto = orderService.queryPayResult(payNo);
+
+        return payRecordDto;
+
+    }
+
 }
