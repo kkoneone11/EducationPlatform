@@ -2,6 +2,7 @@ package com.education.platform.orders.service.service;
 
 import com.education.platform.orders.model.dto.AddOrderDto;
 import com.education.platform.orders.model.dto.PayRecordDto;
+import com.education.platform.orders.model.dto.PayStatusDto;
 import com.education.platform.orders.model.po.XcPayRecord;
 
 /**
@@ -34,4 +35,11 @@ public interface OrderService {
      * @return 支付记录信息
      */
     public PayRecordDto queryPayResult(String payNo);
+
+
+    /**
+     * 保存支付查询的状态
+     * @param payStatusDto
+     */
+    public void saveAliPayStatus(PayStatusDto payStatusDto);
 }
