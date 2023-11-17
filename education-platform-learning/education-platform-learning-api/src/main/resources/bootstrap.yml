@@ -27,6 +27,10 @@ spring:
           - data-id: feign-${spring.profiles.active}.yaml
             group: EducationPlatform-common
             refresh: true
+          - data-id: rabbitmq-${spring.profiles.active}.yaml
+            group: EducationPlatform-common
+            refresh: true
+
 
   profiles:
     active: dev11
