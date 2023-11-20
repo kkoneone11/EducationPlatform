@@ -47,7 +47,9 @@ public class MyCourseTablesServiceImpl implements MyCourseTablesService {
     public XcChooseCourseDto addChooseCourse(String userId, Long courseId) {
         //查询课程信息
         CoursePublish coursepublish = contentServiceClient.getCoursepublish(courseId);
+        if(coursepublish == null){
 
+        }
         //查看课程是否需要收费 然后分别处理
         String charge = coursepublish.getCharge();
 
