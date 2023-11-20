@@ -1,7 +1,10 @@
 package com.education.learning.service.service;
 
+import com.education.base.model.page.PageResult;
+import com.education.learning.model.dto.MyCourseTableParams;
 import com.education.learning.model.dto.XcChooseCourseDto;
 import com.education.learning.model.dto.XcCourseTablesDto;
+import com.education.learning.model.po.XcCourseTables;
 
 /**
  * @Author：kkoneone11
@@ -16,4 +19,7 @@ public interface MyCourseTablesService {
     XcCourseTablesDto getLearningStatus(String userId, Long courseId);
 
     boolean saveChooseCourseStatus(String chooseCourseId);
+
+
+    public PageResult<XcCourseTables> mycourestabls(MyCourseTableParams params);
 }
