@@ -221,3 +221,6 @@ POST {{checkcode_host}}/checkcode/pic
 
 ### 查询课程发布信息
 GET {{content_host}}/content/r/coursepublish/2
+
+### 查询课程发布信息
+GET {{gateway_host}}/content/course/whole/18

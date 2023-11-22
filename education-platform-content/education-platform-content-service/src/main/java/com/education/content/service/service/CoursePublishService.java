@@ -51,4 +51,13 @@ public interface CoursePublishService {
     Boolean saveCourseIndex(Long courseId);
 
     CoursePublish getCoursePublish(Long courseId);
+
+    /**
+     * @description 查询缓存中的课程信息
+     * @param courseId
+     * @return com.education.content.model.po.CoursePublish
+     * @author kkoneone
+     * @date 2022/10/22 16:15
+     */
+    public CoursePublish getCoursePublishCache(Long courseId);
 }

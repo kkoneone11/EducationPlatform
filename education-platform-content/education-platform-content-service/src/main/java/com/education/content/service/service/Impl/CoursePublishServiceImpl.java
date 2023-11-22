@@ -31,6 +31,8 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
@@ -44,6 +46,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author：kkoneone11
@@ -81,6 +84,11 @@ public class CoursePublishServiceImpl implements CoursePublishService {
 
     @Autowired
     SearchServiceClient searchServiceClient;
+
+    @Autowired
+    StringRedisTemplate redisTemplate;
+
+
 
 
 
@@ -323,5 +331,36 @@ public class CoursePublishServiceImpl implements CoursePublishService {
     public CoursePublish getCoursePublish(Long courseId) {
         CoursePublish coursePublish = coursePublishMapper.selectById(courseId);
         return coursePublish;
+    }
+
+    @Override
+    public CoursePublish getCoursePublishCache(Long courseId) {
+        //1.先查询redis缓存
+        String jsonObj = redisTemplate.opsForValue().get("course:" + courseId);
+        if(StringUtils.isNotEmpty(jsonObj)){
+            //1.1查询为空值也返回（解决缓存穿透）
+            if(jsonObj.equals("null")){
+                return null;
+            }
+            //1.2查询不为空值则String类型转化为coursePublish并返回
+            return JSON.parseObject(jsonObj, CoursePublish.class);
+        }else { //2.缓存没有则查询数据库
+            log.debug("缓存没有 ，开始查询数据库");
+            CoursePublish coursePublish = coursePublishMapper.selectById(courseId);
+            //2.1如果为空则也存入
+            if(coursePublish == null){
+                redisTemplate.opsForValue().set("course:"+courseId,"null",30, TimeUnit.SECONDS);
+                return null;
+            }
+            String jsonString = JSON.toJSONString(coursePublish);
+            //2.2存入redis
+            redisTemplate.opsForValue().set("course:"+courseId,jsonString);
+            return coursePublish;
+        }
+
+
+
+
+
     }
 }
