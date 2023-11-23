@@ -29,6 +29,8 @@ import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -46,6 +48,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -87,6 +90,9 @@ public class CoursePublishServiceImpl implements CoursePublishService {
 
     @Autowired
     StringRedisTemplate redisTemplate;
+
+    @Autowired
+    RedissonClient redissonClient;
 
 
 
@@ -345,17 +351,26 @@ public class CoursePublishServiceImpl implements CoursePublishService {
             //1.2查询不为空值则String类型转化为coursePublish并返回
             return JSON.parseObject(jsonObj, CoursePublish.class);
         }else { //2.缓存没有则查询数据库
-            log.debug("缓存没有 ，开始查询数据库");
-            CoursePublish coursePublish = coursePublishMapper.selectById(courseId);
-            //2.1如果为空则也存入
-            if(coursePublish == null){
-                redisTemplate.opsForValue().set("course:"+courseId,"null",30, TimeUnit.SECONDS);
-                return null;
+            //每门课程设置一个锁
+            RLock lock = redissonClient.getLock("courseQueryLock" + courseId);
+            lock.lock();
+            try{
+                log.debug("缓存没有 ，开始查询数据库");
+                CoursePublish coursePublish = coursePublishMapper.selectById(courseId);
+                //2.1如果为空则也存入
+                if(coursePublish == null){
+                    redisTemplate.opsForValue().set("course:"+courseId,"null",30+new Random().nextInt(100), TimeUnit.SECONDS);
+                    return null;
+                }
+                String jsonString = JSON.toJSONString(coursePublish);
+                //2.2存入redis
+                redisTemplate.opsForValue().set("course:"+courseId,jsonString);
+                return coursePublish;
+            }finally {
+                lock.unlock();
             }
-            String jsonString = JSON.toJSONString(coursePublish);
-            //2.2存入redis
-            redisTemplate.opsForValue().set("course:"+courseId,jsonString);
-            return coursePublish;
+
+
         }
 
 
