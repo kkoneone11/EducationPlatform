@@ -245,4 +245,13 @@ public class TeachplanServiceImpl extends ServiceImpl<TeachplanMapper, Teachplan
         Integer count = teachplanMapper.selectCount(queryWrapper);
         return count;
     }
+
+
+    @Override
+    public void unassociationMedia(Long teachPlanId, Long mediaId) {
+        LambdaQueryWrapper<TeachplanMedia> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(TeachplanMedia::getTeachplanId, teachPlanId)
+                .eq(TeachplanMedia::getMediaId, mediaId);
+        teachplanMediaMapper.delete(queryWrapper);
+    }
 }

@@ -27,4 +27,10 @@ public interface TeachplanService extends IService<Teachplan> {
     void moveTeachplan(String moveType , Long teachplanId);
 
     TeachplanMedia associationMedia(BindTeachplanMediaDto bindTeachplanMediaDto);
+
+    /** 解绑教学计划与媒资信息
+     * @param teachPlanId       教学计划id
+     * @param mediaId           媒资信息id
+     */
+    void unassociationMedia(Long teachPlanId, Long mediaId);
 }

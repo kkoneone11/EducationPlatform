@@ -63,6 +63,7 @@ public class CourseSearchServiceImpl implements CourseSearchService {
         //source源字段过虑
         String[] sourceFieldsArray = sourceFields.split(",");
         searchSourceBuilder.fetchSource(sourceFieldsArray, new String[]{});
+        //指定条件查询
         if(courseSearchParam==null){
             courseSearchParam = new SearchCourseParamDto();
         }
@@ -76,13 +77,16 @@ public class CourseSearchServiceImpl implements CourseSearchService {
             multiMatchQueryBuilder.field("name",10);
             boolQueryBuilder.must(multiMatchQueryBuilder);
         }
-        //过虑
+        //过滤
+        //匹配大分类
         if(StringUtils.isNotEmpty(courseSearchParam.getMt())){
             boolQueryBuilder.filter(QueryBuilders.termQuery("mtName",courseSearchParam.getMt()));
         }
+        //匹配小分类
         if(StringUtils.isNotEmpty(courseSearchParam.getSt())){
             boolQueryBuilder.filter(QueryBuilders.termQuery("stName",courseSearchParam.getSt()));
         }
+        //匹配难度
         if(StringUtils.isNotEmpty(courseSearchParam.getGrade())){
             boolQueryBuilder.filter(QueryBuilders.termQuery("grade",courseSearchParam.getGrade()));
         }

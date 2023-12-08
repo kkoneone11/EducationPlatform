@@ -37,6 +37,7 @@ public class IndexServiceImpl implements IndexService {
 
  @Override
  public Boolean addCourseIndex(String indexName,String id,Object object) {
+  //准备请求参数，对应DSL语句中的JSON文档，所以要把对象序列化为JSON格式
   String jsonString = JSON.toJSONString(object);
   //根据索引名生成文档要存储的地址
   IndexRequest indexRequest = new IndexRequest(indexName).id(id);
