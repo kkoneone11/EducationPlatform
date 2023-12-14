@@ -12,6 +12,7 @@ import com.education.content.service.service.CourseBaseInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -39,13 +40,15 @@ public class CourseBaseInfoController {
      * @return
      */
     @ApiOperation("课程查询接口")
+    @PreAuthorize("hasAuthority('xc_teachmanager_course_list')") //拥有课程列表查询的权限方可访问
     @PostMapping("/course/list")
     public PageResult<CourseBase> list(PageParams pageParams,
                                        @RequestBody(required = false) QueryCourseParamsDto queryCourseParams){
-
-        PageResult<CourseBase> courseBasePageResult = courseBaseInfoService.queryCourseBaseList(pageParams, queryCourseParams);
-        return courseBasePageResult;
-
+        //取出用户身份
+        SecurityUtil.XcUser user = SecurityUtil.getUser();
+        //根据当前用户查询对应的机构 然后根据机构id查询对应的课程
+        String companyId = user.getCompanyId();
+        return courseBaseInfoService.queryCourseBaseList(Long.parseLong(companyId),pageParams,queryCourseParams);
     }
 
 

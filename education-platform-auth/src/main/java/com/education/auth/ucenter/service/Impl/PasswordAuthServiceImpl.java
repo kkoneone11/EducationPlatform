@@ -48,8 +48,6 @@ public class PasswordAuthServiceImpl implements AuthService {
         if(!verify){
             throw new RuntimeException("验证码输入错误");
         }
-
-
         String username = authParamsDto.getUsername();
         XcUser user = xcUserMapper.selectOne(new LambdaQueryWrapper<XcUser>().eq(XcUser::getUsername, username));
         //用户不存在

@@ -2,13 +2,15 @@ package com.education.auth.auth.controller;
 
 
 import com.education.auth.ucenter.mapper.XcUserMapper;
+import com.education.auth.ucenter.model.dto.RegisterDto;
 import com.education.auth.ucenter.model.po.XcUser;
+import com.education.checkcode.config.MailUtil;
+import com.education.checkcode.service.SendCodeService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Mr.M
@@ -22,6 +24,8 @@ public class LoginController {
 
     @Autowired
     XcUserMapper userMapper;
+    @Autowired
+    SendCodeService sendCodeService;
 
 
     @RequestMapping("/login-success")
@@ -48,6 +52,15 @@ public class LoginController {
     public String r2() {
         return "访问r2资源";
     }
+
+    @ApiOperation(value = "发送邮箱验证码",tags = "发送邮箱验证码")
+    @PostMapping("/phone")
+    public void sendEMail(@RequestParam("param1") String email){
+        String code = MailUtil.achieveCode();
+        sendCodeService.sendEmail(email, code);
+    }
+
+
 
 
 
