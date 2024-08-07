@@ -59,9 +59,9 @@ public class MyCourseTablesServiceImpl implements MyCourseTablesService {
         //选课记录
         XcChooseCourse chooseCourse = null;
 
-        
-        if("201000".equals(charge)){ //课程免费
-            //添加免费课程
+        //课程免费
+        if("201000".equals(charge)){
+            //添加到选课记录表
             chooseCourse = addFreeCourse(userId, coursepublish);
             //添加到我的课程表
             addCourseTables(chooseCourse);
@@ -124,6 +124,7 @@ public class MyCourseTablesServiceImpl implements MyCourseTablesService {
                 .eq(XcChooseCourse::getOrderType, "700002")//收费订单
                 .eq(XcChooseCourse::getStatus, "701002");//待支付
         List<XcChooseCourse> xcChooseCourses = xcChooseCourseMapper.selectList(queryWrapper);
+        //如果已经存在对应的选课数据，返回一条即可
         if (xcChooseCourses != null && xcChooseCourses.size()>0) {
             return xcChooseCourses.get(0);
         }
@@ -201,6 +202,7 @@ public class MyCourseTablesServiceImpl implements MyCourseTablesService {
         queryWrapper.eq(XcChooseCourse::getOrderType,"700001");//免费课程
         queryWrapper.eq(XcChooseCourse::getStatus,"701001");//选课成功
         List<XcChooseCourse> xcChooseCourses = xcChooseCourseMapper.selectList(queryWrapper);
+        //如果已经存在对应的选课数据，返回一条即可
         if (xcChooseCourses != null && xcChooseCourses.size()>0) {
             return xcChooseCourses.get(0);
         }
