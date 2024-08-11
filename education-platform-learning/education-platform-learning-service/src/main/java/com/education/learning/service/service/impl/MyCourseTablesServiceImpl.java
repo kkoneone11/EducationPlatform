@@ -65,13 +65,20 @@ public class MyCourseTablesServiceImpl implements MyCourseTablesService {
             chooseCourse = addFreeCourse(userId, coursepublish);
             //添加到我的课程表
             addCourseTables(chooseCourse);
+            log.info("添加免费课程");
         }else {
             //课程收费
             chooseCourse  = addChargeCoruse(userId, coursepublish);
+            log.info("添加收费课程");
         }
         //获取学习资格
+        XcCourseTablesDto learningStatus = getLearningStatus(userId, courseId);
 
-        return null;
+        //封装返回值
+        XcChooseCourseDto chooseCourseDto = new XcChooseCourseDto();
+        BeanUtils.copyProperties(chooseCourse, chooseCourseDto);
+        chooseCourseDto.setLearnStatus(learningStatus.learnStatus);
+        return chooseCourseDto;
     }
 
     /**
