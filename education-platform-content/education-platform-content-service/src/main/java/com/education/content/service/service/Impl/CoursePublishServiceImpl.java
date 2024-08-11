@@ -49,6 +49,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -339,39 +340,6 @@ public class CoursePublishServiceImpl implements CoursePublishService {
         return coursePublish;
     }
 
-    @Override
-    public CoursePublish getCoursePublishCache(Long courseId) {
-        //1.先查询redis缓存
-        String jsonObj = redisTemplate.opsForValue().get("course:" + courseId);
-        if(StringUtils.isNotEmpty(jsonObj)){
-            //1.1查询为空值也返回（解决缓存穿透）
-            if(jsonObj.equals("null")){
-                return null;
-            }
-            //1.2查询不为空值则String类型转化为coursePublish并返回
-            return JSON.parseObject(jsonObj, CoursePublish.class);
-        }else { //2.缓存没有则查询数据库
-            //每门课程设置一个锁
-            RLock lock = redissonClient.getLock("courseQueryLock" + courseId);
-            lock.lock();
-            try{
-                log.debug("缓存没有 ，开始查询数据库");
-                CoursePublish coursePublish = coursePublishMapper.selectById(courseId);
-                //2.1如果为空则也存入
-                if(coursePublish == null){
-                    redisTemplate.opsForValue().set("course:"+courseId,"null",30+new Random().nextInt(100), TimeUnit.SECONDS);
-                    return null;
-                }
-                String jsonString = JSON.toJSONString(coursePublish);
-                //2.2存入redis
-                redisTemplate.opsForValue().set("course:"+courseId,jsonString);
-                return coursePublish;
-            }finally {
-                lock.unlock();
-            }
-
-
-        }
 
 
 

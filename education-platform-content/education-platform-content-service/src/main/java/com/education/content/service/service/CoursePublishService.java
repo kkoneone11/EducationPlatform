@@ -59,5 +59,5 @@ public interface CoursePublishService {
      * @author kkoneone
      * @date 2022/10/22 16:15
      */
-    public CoursePublish getCoursePublishCache(Long courseId);
+//    public CoursePublish getCoursePublishCache(Long courseId);
 }
